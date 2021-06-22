@@ -1,0 +1,12 @@
+{
+  "name": "Trinket",
+  "version": "0.0.1",
+  "description": "Create a website with one command!",
+  "main": "index.js",
+  "author": "Luke Eldridge <jleldridge27@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "commander": "^7.2.0"
+  }
+}
