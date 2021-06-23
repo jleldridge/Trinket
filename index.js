@@ -54,11 +54,22 @@ function setupDocker(root, appName) {
 function createEmberApp(root, appName) {
   console.log(`Creating Ember app in ${root}/web`);
   fs.ensureDirSync(path.join(projectDirectory, "web"));
+
+  // const packageJson = {
+  //   name: appName,
+  //   version: "0.1.0",
+  //   private: true,
+  // };
+  // fs.writeFileSync(
+  //   path.join(root, "web", "package.json"),
+  //   JSON.stringify(packageJson, null, 2) + os.EOL
+  // );
+
   console.log(
     spawn
       .sync(
         `${require.resolve("./node_modules/ember-cli/bin/ember")}`,
-        ["init", appName, `--name=${appName}`],
+        ["init"],
         {
           cwd: path.join(root, "web"),
         }
