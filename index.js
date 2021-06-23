@@ -3,6 +3,7 @@ const fs = require("fs-extra");
 const os = require("os");
 const path = require("path");
 const chalk = require("chalk");
+const spawn = require("cross-spawn");
 
 function init() {
   const program = new commander.Command();
@@ -27,11 +28,11 @@ function createApp(projectDirectory) {
 
   setupDocker(root, appName);
   createEmberApp(root, appName);
-  createRailsApp(root, appName);
   setupNginx(root, appName);
 }
 
 function setupDocker(root, appName) {
+  console.log("Setting up Docker");
   console.log("Creating Dockerfile");
   fs.copySync(
     require.resolve("./packages/docker-templates/Dockerfile"),
@@ -51,11 +52,19 @@ function setupDocker(root, appName) {
 }
 
 function createEmberApp(root, appName) {
-  // TODO: create 'web' folder and initialize a basic ember app
-}
-
-function createRailsApp(root, appName) {
-  // TODO: create 'api' folder and initialize a basic rails app
+  console.log(`Creating Ember app in ${root}/web`);
+  fs.ensureDirSync(path.join(projectDirectory, "web"));
+  console.log(
+    spawn
+      .sync(
+        `${require.resolve("./node_modules/ember-cli/bin/ember")}`,
+        ["init", appName, `--name=${appName}`],
+        {
+          cwd: path.join(root, "web"),
+        }
+      )
+      .output.join("")
+  );
 }
 
 function setupNginx(root, appName) {
