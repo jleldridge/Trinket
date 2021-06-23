@@ -35,8 +35,6 @@ COPY ./web ./
 RUN yarn install
 RUN yarn build
 
-WORKDIR /api
-
 FROM nginx
 COPY ./.docker/nginx/default.conf /etc/nginx/templates/default.conf.template
 COPY --from=web-builder /web/dist /usr/share/nginx/html/web

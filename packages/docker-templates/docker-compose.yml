@@ -1,0 +1,33 @@
+version: "2.1"
+
+services:
+  api:
+    build:
+      context: ./api/
+      dockerfile: Dockerfile
+    image: {app-name}-api
+    ports:
+      - "4000"
+    env_file:
+      - ./{app-name}/.env.development
+    environment:
+      - DATABASE_URL=postgres://postgres@db/{app-name}_dev
+      - DATABASE_URL_TEST=postgres://postgres@db/{app-name}_test
+      - PORT=4000
+      - LOAD_BALANCED=false
+      - REDIS_URL=redis://redis:6379
+    container_name: {app-name}-api
+    depends_on:
+      - db
+    command: bundle exec rails server -b '0.0.0.0'
+
+    db:
+      container_name: {app-name}-db
+      image: postgres:12.1
+      ports:
+        - "5432"
+  
+    redis:
+      image: redis:5.0.7
+      ports:
+        - "6379"
