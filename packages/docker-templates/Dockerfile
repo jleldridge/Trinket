@@ -13,7 +13,6 @@ RUN gem install bundler -v 2.1.4  --no-document
 
 COPY ./api/Gemfile ./api/Gemfile.lock ./
 
-# Setting this manually because heroku cannot set build args based on env vars
 RUN bundle config --global frozen 1 && \
     bundle install --without development:test:assets --verbose --jobs 20 --retry 5 --path=vendor/bundle && \
     # Remove unneeded files (cached *.gem, *.o, *.c)
