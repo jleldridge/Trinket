@@ -65,16 +65,13 @@ function createEmberApp(root, appName) {
   //   JSON.stringify(packageJson, null, 2) + os.EOL
   // );
 
-  console.log(
-    spawn
-      .sync(
-        `${require.resolve("./node_modules/ember-cli/bin/ember")}`,
-        ["init"],
-        {
-          cwd: path.join(root, "web"),
-        }
-      )
-      .output.join("")
+  const child = spawn.sync(
+    `${require.resolve("./node_modules/ember-cli/bin/ember")}`,
+    ["init"],
+    {
+      cwd: path.join(root, "web"),
+      stdio: "inherit",
+    }
   );
 }
 
