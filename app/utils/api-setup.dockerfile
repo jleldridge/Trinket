@@ -1,9 +1,11 @@
-FROM rails:latest
+FROM ruby:2.6.5-slim
 
-# ENV RAILS_ROOT=/app
-# ENV RAILS_ENV=development
-# ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        postgresql-client build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-# WORKDIR $RAILS_ROOT
+WORKDIR /usr/src/app
+RUN gem install rails
 
-RUN rails new api
+RUN rails new api --api

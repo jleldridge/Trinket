@@ -88,7 +88,7 @@ function createRailsApp(root, appName) {
     cwd: root,
     stdio: "inherit",
   });
-  execSync(`docker cp ${appName}-api-container:"/api" .`, {
+  execSync(`docker cp ${appName}-api-container:"/usr/src/app/api" .`, {
     cwd: root,
     stdio: "inherit",
   });
