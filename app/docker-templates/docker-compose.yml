@@ -9,7 +9,7 @@ services:
     ports:
       - "4000"
     env_file:
-      - ./{app-name}/.env.development
+      - ./api/.env.development
     environment:
       - DATABASE_URL=postgres://postgres@db/{app-name}_dev
       - DATABASE_URL_TEST=postgres://postgres@db/{app-name}_test
@@ -21,13 +21,13 @@ services:
       - db
     command: bundle exec rails server -b '0.0.0.0'
 
-    db:
-      container_name: {app-name}-db
-      image: postgres:12.1
-      ports:
-        - "5432"
-  
-    redis:
-      image: redis:5.0.7
-      ports:
-        - "6379"
+  db:
+    container_name: {app-name}-db
+    image: postgres:12.1
+    ports:
+      - "5432"
+
+  redis:
+    image: redis:5.0.7
+    ports:
+      - "6379"
