@@ -6,6 +6,6 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
-RUN gem install rails
-
-RUN rails new api --api
+RUN gem install rails \
+    && rails new api --api \
+    && touch ./api/.env.development
